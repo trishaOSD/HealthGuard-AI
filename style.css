@@ -17,3 +17,29 @@ input, button {
     padding: 10px;
     margin: 10px;
 }
+#themeToggle{
+    position:absolute;
+    top:20px;
+    right:20px;
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:white;
+    color:black;
+    font-weight:bold;
+}
+
+.light-mode{
+    background:linear-gradient(135deg,#f5f7fa,#c3cfe2);
+}
+
+.light-mode .container{
+    background:white;
+    color:black;
+}
+
+.light-mode input{
+    background:#f1f1f1;
+    color:black;
+}

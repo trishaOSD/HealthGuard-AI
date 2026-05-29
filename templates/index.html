@@ -31,6 +31,7 @@ body{
     background-size:cover;
     background-position:center;
     overflow:hidden;
+    transition:0.5s;
 }
 
 .container{
@@ -41,18 +42,23 @@ body{
     backdrop-filter:blur(15px);
     box-shadow:0 8px 32px rgba(0,0,0,0.3);
     color:white;
-    animation:fadeIn 1s ease;
+    animation: float 4s ease-in-out infinite;
 }
 
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
+@keyframes float {
+
+    0%{
+        transform: translateY(0px);
     }
-    to{
-        opacity:1;
-        transform:translateY(0);
+
+    50%{
+        transform: translateY(-10px);
     }
+
+    100%{
+        transform: translateY(0px);
+    }
+
 }
 
 h1{
@@ -116,11 +122,53 @@ button:hover{
     color:#ddd;
 }
 
+#themeToggle{
+    position:absolute;
+    top:20px;
+    right:20px;
+    width:auto;
+    padding:10px 15px;
+    border:none;
+    border-radius:12px;
+    background:white;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.light-mode{
+    background:
+    linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),
+    url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200');
+    background-size:cover;
+    background-position:center;
+}
+
+.light-mode .container{
+    background:rgba(255,255,255,0.8);
+    color:black;
+}
+
+.light-mode .subtitle{
+    color:#333;
+}
+
+.light-mode .footer{
+    color:#333;
+}
+
+.light-mode select{
+    background:#f1f1f1;
+    color:black;
+}
+
 </style>
 
 </head>
 
 <body>
+
+<button id="themeToggle">☀ Light Mode</button>
 
 <div class="container">
 
@@ -212,6 +260,21 @@ document.getElementById("predictForm").addEventListener("submit", async function
     Confidence Level:<br>
     <span style="color:#ffd369">${data.confidence}%</span>
     `;
+
+});
+
+const toggleBtn = document.getElementById("themeToggle");
+
+toggleBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("light-mode");
+
+    if(document.body.classList.contains("light-mode")){
+        toggleBtn.innerText = "🌙 Dark Mode";
+    }
+    else{
+        toggleBtn.innerText = "☀ Light Mode";
+    }
 
 });
 

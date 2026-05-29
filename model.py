@@ -1,21 +1,18 @@
 import pandas as pd
-import joblib
-
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
+import pickle
 
 # Load dataset
 data = pd.read_csv("dataset.csv")
 
-# Features
+# Features and labels
 X = data[["Fever", "Cough", "Fatigue", "Difficulty Breathing"]]
-
-# Labels
 y = data["Disease"]
 
-# Encode disease names
+# Encode labels
 encoder = LabelEncoder()
 y_encoded = encoder.fit_transform(y)
 
@@ -27,22 +24,21 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-# Train model
-model = DecisionTreeClassifier()
+# Better AI Model
+model = RandomForestClassifier(n_estimators=100)
 
+# Train model
 model.fit(X_train, y_train)
 
-# Accuracy
+# Accuracy check
 predictions = model.predict(X_test)
 
 accuracy = accuracy_score(y_test, predictions)
 
 print("AI Accuracy:", round(accuracy * 100, 2), "%")
 
-# Save trained model
-joblib.dump(model, "model.pkl")
-
-print("Model saved as model.pkl")
+# Save model
+pickle.dump(model, open("model.pkl", "wb"))
 
 # Prediction function
 def predict_disease(features):
